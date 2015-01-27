@@ -5,9 +5,9 @@ This container runs both zabbix frontend server and zabbix server daemon. You sh
 
 ## Prerequisite
 
-This container rely on a mysql container "orchardup/mysql". You can also setup a database container by yourself.
+This container relies on a mysql container "orchardup/mysql". You can also setup a database container by yourself.
 
-Get the container by DockerHub
+Get the mysql container from DockerHub
 
 ```
 $ docker pull orchardup/mysql
@@ -24,17 +24,11 @@ $ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=qwerty --name mysql orchardu
 Setup zabbix database at first time.
 
 ```
-$ docker run -it --link=mysql:mysql -e MYSQL_ENV_MYSQL_PASS=qwerty docker-zabbix-server /zabbix-initdb.sh
-```
-
-Patch configuration files to correct database, username and password
-
-```
-$ docker run -it docker-zabbix-server /zabbix-setup-frontend.sh
+$ docker run -it --link=mysql:mysql -e MYSQL_ENV_MYSQL_PASS=qwerty -e ZABBIX_PASSWORD=zabbix docker-zabbix-server /zabbix-initdb.sh
 ```
 
 ## Run
 
 ```
-$ docker run -d --link mysql:mysql -e MYSQL_ENV_MYSQL_PASS=zabbix -p 8080:80 -p 10051:10051 docker-zabbix-server
+$ docker run -d --link mysql:mysql -e ZABBIX_PASSWORD=zabbix -p 8080:80 -p 10051:10051 docker-zabbix-server
 ```

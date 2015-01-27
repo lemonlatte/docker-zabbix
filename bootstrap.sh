@@ -10,7 +10,7 @@ global \$DB;
 \$DB['PORT']     = '0';
 \$DB['DATABASE'] = 'zabbix';
 \$DB['USER']     = 'zabbix';
-\$DB['PASSWORD'] = '$MYSQL_ENV_MYSQL_PASS';
+\$DB['PASSWORD'] = '$ZABBIX_PASSWORD';
 // SCHEMA is relevant only for IBM_DB2 database
 \$DB['SCHEMA'] = '';
 
@@ -24,7 +24,7 @@ global \$DB;
 EOF
 
 sed -i "s/\# DBHost=.*/DBHost=$MYSQL_PORT_3306_TCP_ADDR/g" /etc/zabbix/zabbix_server.conf
-sed -i "s/\# DBPassword=.*/DBPassword=$MYSQL_ENV_MYSQL_PASS/g" /etc/zabbix/zabbix_server.conf
+sed -i "s/\# DBPassword=.*/DBPassword=$ZABBIX_PASSWORD/g" /etc/zabbix/zabbix_server.conf
 
 /usr/bin/supervisord -n
 
